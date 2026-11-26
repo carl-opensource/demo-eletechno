@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Eletechno · Impianti elettrici Milano e Pantigliate (demo)</title>
+<meta name="description" content="Proposta di restyling del sito di Eletechno di Flavio Farioli. Demo non ufficiale realizzata da CarlHost.">
+<meta name="theme-color" content="#0D1017">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#0D1017; --bg-1:#11141D; --bg-2:#191D2A; --bg-3:#252A32;
+  --light-0:#F8F9FA; --light-1:#F1F4F6; --light-2:#E4EAEE;
+  --line:rgb(148 163 184/.16); --line-strong:rgb(148 163 184/.3);
+  --accent:#FFB21E; --accent-2:#FF7A00; --glow:#FF5A00;
+  --ok:#3BE38A;
+  --ease:cubic-bezier(.2,0,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;background:var(--bg-0)}
+body{font:17px/1.6 "Inter Tight",system-ui,sans-serif;color:rgb(255 255 255/.92);background:var(--bg-0);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.mono{font:500 13px/1 "IBM Plex Mono",monospace;letter-spacing:.02em}
+h1,h2,h3{font-family:Sora,sans-serif;font-weight:500;letter-spacing:-.045em;line-height:1.08;text-wrap:balance;color:#fff}
+.dim{color:rgb(255 255 255/.45)}
+.h2{font-size:clamp(34px,4.6vw,60px)}
+.sub{color:rgb(255 255 255/.66);font-size:clamp(17px,1.5vw,19px);line-height:1.6}
+.kick{display:inline-flex;align-items:center;gap:10px;color:var(--accent);margin-bottom:20px;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.kick i{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+
+.demo-bar{position:relative;z-index:60;background:#000;color:rgb(255 255 255/.7);font-size:13px;text-align:center;padding:9px 16px;line-height:1.4;border-bottom:1px solid var(--line)}
+.demo-bar b{color:#fff}.demo-bar a{color:var(--accent);font-weight:600}
+
+/* buttons: light changes, never movement */
+.btn-rainbow{--fill:#141824;position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:8px;font:500 15px/1.2 "IBM Plex Mono",monospace;color:#fff;border:2px solid transparent;white-space:nowrap;
+  background:linear-gradient(var(--fill),var(--fill)) padding-box,linear-gradient(#121213 0%,rgb(18 18 19/.6) 80%,rgb(18 18 19/0)) border-box,linear-gradient(90deg,var(--fill),#30E3FF,#FFF181,#FFB21E,#FF4C52,#30E3FF,#FFF181,#FFB21E,#FF4C52,var(--fill)) border-box;
+  background-size:400% 100%;animation:rainbow 14s linear infinite}
+.btn-rainbow::before{content:"";position:absolute;z-index:-1;left:50%;bottom:-25%;width:80%;height:42%;translate:-50% 0;background:linear-gradient(90deg,#30E3FF,#FFF181,#FFB21E,#FF4C52,#30E3FF,#FFF181,#FFB21E,#FF4C52,#30E3FF);background-size:400% 100%;animation:rainbow 14s linear infinite;filter:blur(14px);transition:filter .4s}
+.btn-rainbow:hover::before{filter:blur(9px)}
+.btn-rainbow:hover{--fill:#1b2030}
+@keyframes rainbow{to{background-position:400% 0}}
+.btn-pill{position:relative;isolation:isolate;display:inline-flex;gap:9px;align-items:center;padding:15px 24px;border-radius:999px;background:linear-gradient(90deg,#DBE2E6 0%,#fff 72%);color:#0D1017;font:500 15px/1.2 "IBM Plex Mono",monospace;white-space:nowrap}
+.btn-pill .side-glow{position:absolute;z-index:-1;right:0;top:50%;translate:0 -50%;width:88px;height:56px;border-radius:999px;background:linear-gradient(270deg,var(--accent) 0%,rgb(255 250 107/.2) 95%);filter:blur(14px);opacity:.7;transition:filter .4s,opacity .4s}
+.btn-pill:hover .side-glow{filter:blur(9px);opacity:1}
+.btn-ghost{display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;font:500 14px "IBM Plex Mono",monospace;color:rgb(255 255 255/.85);box-shadow:inset 0 0 0 1px var(--line-strong);transition:background-color .16s,box-shadow .16s;white-space:nowrap}
+.btn-ghost:hover{background:rgb(255 255 255/.06);box-shadow:inset 0 0 0 1px rgb(255 255 255/.4)}
+.btn-rainbow svg,.btn-pill svg,.btn-ghost svg{width:18px;height:18px;flex:none}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* nav */
+.nav{position:fixed;top:50px;left:50%;translate:-50% 0;z-index:50;width:min(1140px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 16px;border-radius:999px;background:rgb(25 29 42/.6);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);box-shadow:inset 0 1px 0 rgb(255 255 255/.07),0 0 0 1px var(--line),0 20px 40px -20px rgb(0 0 0/.6);transition:top .3s var(--ease)}
+.nav.stuck{top:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:Sora;font-weight:600;font-size:18px;letter-spacing:-.03em;color:#fff}
+.bolt{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:radial-gradient(80% 80% at 30% 20%,#FFD36B,#FF8A00 70%);box-shadow:0 0 22px -2px rgb(255 140 0/.7),inset 0 1px 0 rgb(255 255 255/.5)}
+.bolt svg{width:18px;height:18px;color:#1a1000}
+.brand small{display:block;font:500 10px "IBM Plex Mono";letter-spacing:.06em;color:rgb(255 255 255/.45);margin-top:2px}
+.nav-links{display:flex;gap:2px}
+.nav-links a{padding:9px 13px;border-radius:999px;font-size:14.5px;font-weight:500;color:rgb(255 255 255/.65);transition:color .16s,background-color .16s}
+.nav-links a:hover{color:#fff;background:rgb(255 255 255/.06)}
+.nav .btn-rainbow{padding:10px 16px;font-size:13.5px}
+.nav .btn-rainbow::before{display:none}
+@media (max-width:940px){.nav-links,.nav .btn-ghost{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:170px 0 120px;min-height:100svh}
+.hero-light{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-light .a{position:absolute;left:50%;top:-30%;width:1300px;height:900px;translate:-50% 0;background:radial-gradient(50% 50% at 50% 50%,rgb(255 122 0/.28),transparent 70%);filter:blur(30px)}
+.hero-light .b{position:absolute;right:-8%;top:18%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgb(255 178 30/.35),rgb(255 90 0/.12) 45%,transparent 70%);filter:blur(50px);animation:drift 24s ease-in-out infinite}
+.hero-light .c{position:absolute;left:-10%;bottom:-20%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgb(48 120 255/.22),transparent 70%);filter:blur(60px)}
+.hero-light .grid{position:absolute;inset:0;background-image:linear-gradient(rgb(148 163 184/.07) 1px,transparent 1px),linear-gradient(90deg,rgb(148 163 184/.07) 1px,transparent 1px);background-size:64px 64px;mask:radial-gradient(60% 55% at 50% 35%,#000,transparent);-webkit-mask:radial-gradient(60% 55% at 50% 35%,#000,transparent)}
+.hero-light .noise{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+@keyframes drift{50%{transform:translate(-40px,30px) scale(1.05)}}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:rgb(25 29 42/.7);box-shadow:inset 0 0 0 1px var(--line),inset 0 1px 0 rgb(255 255 255/.06);font-size:14px;color:rgb(255 255 255/.8)}
+.eyebrow b{font:500 11px "IBM Plex Mono";padding:4px 8px;border-radius:999px;background:rgb(255 178 30/.15);color:var(--accent)}
+.hero h1{font-size:clamp(42px,5.8vw,80px);margin:24px 0 22px;line-height:1.04}
+.hero h1 .glow-word{background:linear-gradient(100deg,#FFE29A 0%,#FFB21E 40%,#FF7A00 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgb(255 140 0/.35))}
+.hero .sub{max-width:540px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 30px;align-items:center}
+.checks{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14.5px;color:rgb(255 255 255/.6)}
+.checks span{display:inline-flex;align-items:center;gap:8px}
+.checks svg{width:16px;height:16px;color:var(--accent)}
+
+/* hero product: smart home app */
+.stage{position:relative;height:640px}
+.circuit{position:absolute;inset:-40px -80px -40px -40px;width:calc(100% + 120px);height:calc(100% + 80px);opacity:.9}
+.circuit path{fill:none;stroke:rgb(255 178 30/.18);stroke-width:1.5}
+.circuit .pulse{stroke:url(#pulseGrad);stroke-width:2.2;stroke-dasharray:60 600;animation:flow 4s linear infinite}
+.circuit .pulse.d2{animation-delay:-1.3s}.circuit .pulse.d3{animation-delay:-2.6s}
+.circuit circle{fill:var(--bg-2);stroke:rgb(255 178 30/.5);stroke-width:1.5}
+@keyframes flow{to{stroke-dashoffset:-660}}
+.phone{position:absolute;left:50%;top:50%;translate:-50% -50%;width:300px;border-radius:46px;padding:10px;background:linear-gradient(160deg,#2c313d,#0b0d12 45%,#22262f);box-shadow:inset 0 0 0 1.5px rgb(255 255 255/.1),0 0 0 1px rgb(0 0 0/.6),0 60px 100px -30px rgb(0 0 0/.9),0 0 90px -20px rgb(255 120 0/.35)}
+.screen{border-radius:37px;overflow:hidden;background:#0B0E15;position:relative;padding:44px 14px 16px}
+.island{position:absolute;top:10px;left:50%;translate:-50% 0;width:90px;height:26px;border-radius:99px;background:#000}
+.app-top{display:flex;justify-content:space-between;align-items:center;margin:4px 4px 14px}
+.app-top b{font:600 19px Sora;letter-spacing:-.03em;color:#fff;display:block}
+.app-top small{font-size:12px;color:rgb(255 255 255/.5)}
+.app-top .home{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line)}
+.app-top .home svg{width:18px;height:18px;color:var(--accent)}
+.status-card{border-radius:20px;padding:14px;background:linear-gradient(140deg,rgb(59 227 138/.16),rgb(59 227 138/.04));box-shadow:inset 0 0 0 1px rgb(59 227 138/.3);display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.status-card .ic{width:40px;height:40px;border-radius:12px;background:rgb(59 227 138/.18);display:grid;place-items:center;color:var(--ok)}
+.status-card .ic svg{width:20px;height:20px}
+.status-card b{color:#fff;font-size:14.5px;display:block}
+.status-card small{color:rgb(255 255 255/.55);font-size:12px}
+.status-card .live{margin-left:auto;width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgb(59 227 138/.2);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.35}}
+.cam{position:relative;border-radius:18px;overflow:hidden;height:120px;margin-bottom:10px;background:linear-gradient(180deg,#1d2433,#0f131c)}
+.cam svg{position:absolute;inset:0;width:100%;height:100%}
+.cam .rec{position:absolute;left:10px;top:9px;font:500 10px "IBM Plex Mono";color:#fff;display:flex;align-items:center;gap:5px;background:rgb(0 0 0/.45);padding:3px 7px;border-radius:6px}
+.cam .rec i{width:6px;height:6px;border-radius:50%;background:#FF4C52;animation:blink 1.2s infinite}
+.cam .lbl{position:absolute;right:10px;bottom:8px;font:500 10px "IBM Plex Mono";color:rgb(255 255 255/.75)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{border-radius:18px;padding:12px;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line);transition:background-color .4s,box-shadow .4s}
+.tile.on{background:linear-gradient(150deg,rgb(255 178 30/.22),rgb(255 122 0/.08));box-shadow:inset 0 0 0 1px rgb(255 178 30/.45)}
+.tile .t-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tile .t-top svg{width:18px;height:18px;color:rgb(255 255 255/.5)}
+.tile.on .t-top svg{color:var(--accent)}
+.sw{width:30px;height:18px;border-radius:99px;background:rgb(255 255 255/.15);position:relative;transition:background-color .3s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:translate .3s var(--ease)}
+.tile.on .sw{background:var(--accent)}
+.tile.on .sw::after{translate:12px 0}
+.tile b{display:block;font-size:13.5px;color:#fff}
+.tile small{font-size:11.5px;color:rgb(255 255 255/.5)}
+.float{position:absolute;z-index:3;display:flex;align-items:center;gap:12px;padding:12px 16px 12px 12px;border-radius:16px;background:rgb(25 29 42/.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px var(--line-strong),inset 0 1px 0 rgb(255 255 255/.08),0 24px 40px -20px rgb(0 0 0/.8);font-size:14px;font-weight:600;color:#fff;animation:bob 6s ease-in-out infinite}
+.float .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;flex:none}
+.float .ic svg{width:18px;height:18px}
+.float small{display:block;font-weight:500;font-size:12px;color:rgb(255 255 255/.55)}
+.f1{left:-20px;top:70px}.f2{right:-10px;bottom:90px;animation-delay:-3s}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@media (max-width:980px){.hero{padding:140px 0 80px}.hero-grid{grid-template-columns:1fr}.stage{max-width:460px;width:100%;margin:10px auto 0}}
+@media (max-width:480px){.stage{height:600px}.phone{width:272px}.f1{left:-4px;top:16px}.f2{right:-4px;bottom:20px}.float{padding:10px 12px 10px 10px;font-size:13px}.float .ic{width:30px;height:30px}}
+
+/* marquee */
+.ticker{border-block:1px solid var(--line);padding:22px 0;overflow:hidden;mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);-webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:44px;width:max-content;animation:mq 46s linear infinite}
+.ticker:hover .track{animation-play-state:paused}
+.track span{display:flex;align-items:center;gap:44px;font:500 15px "IBM Plex Mono";color:rgb(255 255 255/.55);white-space:nowrap}
+.track span::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);opacity:.7}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sections */
+.pad{padding:clamp(90px,12vw,170px) 0}
+.head{max-width:740px;margin-bottom:60px}
+.head .sub{margin-top:20px;max-width:580px}
+.fill-text{font-family:Sora;font-weight:500;font-size:clamp(32px,5vw,68px);line-height:1.12;letter-spacing:-.045em;max-width:1080px}
+.fill-text .line{--ink:#fff;--d:rgb(255 255 255/.16);background:linear-gradient(to right,var(--ink) 50%,var(--d) 50%);background-size:200% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;padding-block:.05em}
+.fill-text .line .hl{-webkit-text-fill-color:initial}
+.reduce .fill-text,.no-js .fill-text{color:#fff}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{position:relative;overflow:hidden;border-radius:24px;padding:28px;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line),inset 0 1px 0 rgb(255 255 255/.06);display:flex;flex-direction:column;gap:12px;isolation:isolate}
+.card::before{content:"";position:absolute;z-index:-1;width:280px;height:280px;border-radius:50%;left:-80px;top:-120px;background:radial-gradient(circle,rgb(255 150 30/.16),transparent 70%);transition:opacity .5s;opacity:.7}
+.card:hover::before{opacity:1}
+.card .spot{position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgb(255 178 30/.09),transparent 45%)}
+.card:hover .spot{opacity:1}
+.card h3{font-size:clamp(22px,2.1vw,27px);letter-spacing:-.035em}
+.card p{color:rgb(255 255 255/.62);font-size:16px}
+.c-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgb(255 178 30/.1);box-shadow:inset 0 0 0 1px rgb(255 178 30/.25);color:var(--accent)}
+.c-ic svg{width:22px;height:22px}
+.mini{margin-top:auto;padding-top:14px}
+.c8{grid-column:span 8}.c4{grid-column:span 4}.c6{grid-column:span 6}.c5{grid-column:span 5}.c7{grid-column:span 7}
+@media (max-width:900px){.bento{grid-template-columns:1fr}.c8,.c4,.c6,.c5,.c7{grid-column:auto}}
+/* mini: breaker panel */
+.panel{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:14px;border-radius:16px;background:#0F121A;box-shadow:inset 0 0 0 1px var(--line)}
+.brk{border-radius:8px;padding:10px 0 8px;background:linear-gradient(#232836,#1a1e29);box-shadow:inset 0 1px 0 rgb(255 255 255/.06),0 2px 4px rgb(0 0 0/.4);display:flex;flex-direction:column;align-items:center;gap:8px}
+.brk i{width:14px;height:22px;border-radius:4px;background:#3a4152;position:relative}
+.brk i::after{content:"";position:absolute;left:2px;right:2px;height:9px;border-radius:2px;background:#cfd6e4;top:11px;transition:top .3s}
+.brk.on i{background:rgb(59 227 138/.35)}
+.brk.on i::after{top:2px;background:#fff}
+.brk span{font:500 9.5px "IBM Plex Mono";color:rgb(255 255 255/.5)}
+.panel-foot{grid-column:1/-1;display:flex;justify-content:space-between;font:500 11px "IBM Plex Mono";color:rgb(255 255 255/.5);padding-top:4px}
+.panel-foot b{color:var(--ok);font-weight:500}
+/* mini: dimmer */
+.dimmer{padding:16px;border-radius:16px;background:#0F121A;box-shadow:inset 0 0 0 1px var(--line)}
+.dimmer .row{display:flex;justify-content:space-between;font-size:13.5px;color:rgb(255 255 255/.7);margin-bottom:10px}
+.dimmer .row b{color:#fff;font:500 13px "IBM Plex Mono"}
+.bar{height:10px;border-radius:99px;background:rgb(255 255 255/.08);position:relative;margin-bottom:16px}
+.bar i{position:absolute;inset:0 30% 0 0;border-radius:99px;background:linear-gradient(90deg,#FF7A00,#FFE29A);box-shadow:0 0 16px rgb(255 178 30/.5)}
+.bar i::after{content:"";position:absolute;right:-8px;top:50%;translate:0 -50%;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgb(255 178 30/.3)}
+.bar.k i{inset:0 55% 0 0;background:linear-gradient(90deg,#FFB86B,#fff,#BFDBFF)}
+.bulbs{display:flex;gap:10px;justify-content:space-between;margin-top:4px}
+.bulbs i{flex:1;height:30px;border-radius:8px;background:rgb(255 178 30/.15);box-shadow:0 0 18px rgb(255 178 30/.25)}
+.bulbs i:nth-child(2){background:rgb(255 178 30/.3)}.bulbs i:nth-child(3){background:rgb(255 178 30/.5);box-shadow:0 0 26px rgb(255 178 30/.45)}.bulbs i:nth-child(4){background:rgb(255 178 30/.7);box-shadow:0 0 30px rgb(255 178 30/.55)}
+/* mini: gate */
+.gate{position:relative;height:120px;border-radius:16px;background:#0F121A;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.gate .bars{position:absolute;left:14px;right:50%;top:22px;bottom:30px;background:repeating-linear-gradient(90deg,#3a4152 0 4px,transparent 4px 18px);border-top:4px solid #3a4152;border-bottom:4px solid #3a4152;animation:gate 6s var(--ease) infinite}
+.gate .post{position:absolute;right:14px;top:16px;bottom:24px;width:10px;border-radius:3px;background:#3a4152}
+.gate .led{position:absolute;right:11px;top:10px;width:16px;height:6px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:blink 1s infinite}
+.gate .st{position:absolute;left:14px;bottom:8px;font:500 11px "IBM Plex Mono";color:rgb(255 255 255/.55)}
+@keyframes gate{0%,15%{transform:translateX(0)}45%,70%{transform:translateX(-85%)}100%{transform:translateX(0)}}
+/* mini: signal */
+.signal{display:flex;align-items:flex-end;gap:6px;height:70px;padding:14px;border-radius:16px;background:#0F121A;box-shadow:inset 0 0 0 1px var(--line);box-sizing:content-box}
+.signal i{flex:1;border-radius:4px;background:linear-gradient(var(--accent),#FF7A00);opacity:.9}
+.signal i:nth-child(1){height:20%}.signal i:nth-child(2){height:38%}.signal i:nth-child(3){height:55%}.signal i:nth-child(4){height:72%}.signal i:nth-child(5){height:88%}.signal i:nth-child(6){height:100%;opacity:.35}
+.signal b{font:500 11px "IBM Plex Mono";color:rgb(255 255 255/.55);align-self:flex-start;white-space:nowrap;margin-left:6px}
+/* mini: doc */
+.doc{border-radius:16px;padding:16px;background:var(--light-0);color:#0D1017;box-shadow:0 20px 40px -20px rgb(0 0 0/.7)}
+.doc .h{display:flex;justify-content:space-between;align-items:center;font:600 14px Sora;letter-spacing:-.02em;margin-bottom:10px}
+.doc .h span{font:500 10px "IBM Plex Mono";padding:3px 7px;border-radius:6px;background:#E7F9EF;color:#14894C}
+.doc .l{height:7px;border-radius:4px;background:#E4EAEE;margin-bottom:7px}
+.doc .l.s{width:60%}
+.doc .sig{display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px;font:500 10.5px "IBM Plex Mono";color:#5b6472}
+.doc .sig svg{width:80px;height:26px;color:#1e3a8a}
+
+/* light section: promo */
+.light{background:var(--light-1);color:#0D1017;border-radius:40px;margin:0 12px}
+.light h2,.light h3{color:#0D1017}
+.light .dim{color:rgb(13 16 23/.4)}
+.light .sub{color:rgb(13 16 23/.62)}
+.light .kick{color:#C2410C}.light .kick i{background:#EA580C;box-shadow:none}
+.promo{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.p-main{position:relative;overflow:hidden;border-radius:28px;padding:clamp(26px,4vw,44px);background:#fff;box-shadow:0 0 0 1px rgb(16 24 40/.08),0 1px 4px rgb(16 24 40/.1);display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.badge{display:inline-flex;align-items:center;gap:8px;font:500 12px "IBM Plex Mono";padding:6px 11px;border-radius:999px;background:#FFF4E5;color:#C2410C;margin-bottom:16px}
+.p-main h3{font-size:clamp(26px,2.8vw,36px);letter-spacing:-.04em}
+.p-main p{color:rgb(13 16 23/.6);margin:12px 0 22px}
+.specs{list-style:none;display:grid;gap:9px}
+.specs li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;color:#1f2430}
+.specs svg{width:18px;height:18px;flex:none;margin-top:3px;color:#EA580C}
+.gift{display:flex;gap:12px;align-items:center;margin-top:20px;padding:14px;border-radius:16px;background:linear-gradient(120deg,#FFF4E5,#FFF9EF);box-shadow:inset 0 0 0 1px #FED7AA;font-weight:600;font-size:15px}
+.gift svg{width:22px;height:22px;color:#EA580C;flex:none}
+.kit{position:relative;border-radius:22px;background:radial-gradient(80% 70% at 50% 30%,#FFF7EC,#F1F4F6);box-shadow:inset 0 0 0 1px rgb(16 24 40/.06);min-height:300px;display:grid;place-items:center}
+.kit svg{width:88%;height:auto}
+.p-side{border-radius:28px;padding:clamp(26px,3vw,36px);background:#0D1017;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px}
+.p-side::before{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgb(255 150 30/.4),transparent 70%);filter:blur(10px)}
+.p-side h3{color:#fff;font-size:clamp(24px,2.4vw,30px);position:relative}
+.p-side p{color:rgb(255 255 255/.66);position:relative}
+.restart{margin-top:auto;position:relative;display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line)}
+.restart .ring{width:52px;height:52px;flex:none;position:relative}
+.restart .ring svg{width:100%;height:100%;animation:spin 3s linear infinite}
+.restart .ring b{position:absolute;inset:0;display:grid;place-items:center;color:var(--ok)}
+.restart .ring b svg{width:20px;height:20px;animation:none}
+@keyframes spin{to{rotate:360deg}}
+.restart small{display:block;color:rgb(255 255 255/.5);font-size:12.5px}
+.restart strong{font-size:15px}
+@media (max-width:900px){.promo{grid-template-columns:1fr}.p-main{grid-template-columns:1fr}.light{border-radius:28px;margin:0 8px}}
+
+/* who */
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.who .card{min-height:250px}
+.who .num{font:500 13px "IBM Plex Mono";color:rgb(255 255 255/.35)}
+.who ul{list-style:none;display:grid;gap:8px;margin-top:6px}
+.who li{display:flex;gap:9px;align-items:center;font-size:15px;color:rgb(255 255 255/.75)}
+.who li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+@media (max-width:900px){.who{grid-template-columns:1fr}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
+.steps::before{content:"";position:absolute;left:4%;right:4%;top:31px;height:1px;background:linear-gradient(90deg,transparent,rgb(255 178 30/.5),transparent)}
+.step{position:relative}
+.step .dot{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line-strong),0 0 30px -10px rgb(255 140 0/.5);color:var(--accent);margin-bottom:22px;font:500 15px "IBM Plex Mono"}
+.step h3{font-size:22px;letter-spacing:-.03em;margin-bottom:8px}
+.step p{color:rgb(255 255 255/.6);font-size:15.5px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr;gap:34px 16px}.steps::before{display:none}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+.faq details{border-radius:18px;background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--line);margin-bottom:10px;transition:box-shadow .3s}
+.faq details[open]{box-shadow:inset 0 0 0 1px rgb(255 178 30/.35)}
+.faq summary{list-style:none;cursor:pointer;padding:21px 22px;font:500 18px Sora;letter-spacing:-.02em;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{width:28px;height:28px;border-radius:8px;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--line-strong);transition:rotate .3s var(--ease),background-color .3s,color .3s}
+.faq summary i svg{width:14px;height:14px}
+.faq details[open] summary i{rotate:45deg;background:var(--accent);color:#1a1000;box-shadow:none}
+.faq details p{padding:0 22px 22px;color:rgb(255 255 255/.62)}
+@media (max-width:900px){.faq-grid{grid-template-columns:1fr;gap:28px}}
+
+/* final */
+.final{position:relative;overflow:hidden;text-align:center;padding:clamp(110px,14vw,190px) 20px;border-top:1px solid var(--line)}
+.final::before{content:"";position:absolute;left:50%;bottom:-55%;width:1200px;height:800px;translate:-50% 0;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgb(255 122 0/.55),rgb(255 60 0/.18) 45%,transparent 70%);filter:blur(30px)}
+.final::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgb(148 163 184/.06) 1px,transparent 1px),linear-gradient(90deg,rgb(148 163 184/.06) 1px,transparent 1px);background-size:64px 64px;mask:radial-gradient(50% 60% at 50% 70%,#000,transparent);-webkit-mask:radial-gradient(50% 60% at 50% 70%,#000,transparent)}
+.final > *{position:relative;z-index:1}
+.final h2{font-size:clamp(40px,6.4vw,88px);letter-spacing:-.055em}
+.final h2 span{background:linear-gradient(180deg,#fff 35%,rgb(255 255 255/.45));-webkit-background-clip:text;background-clip:text;color:transparent}
+.final .sub{max-width:560px;margin:22px auto 38px}
+.final .cta{justify-content:center;margin:0}
+.contacts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1040px;margin:64px auto 0;text-align:left}
+.contacts a{border-radius:18px;padding:18px;background:rgb(25 29 42/.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .2s,background-color .2s}
+.contacts a:hover{box-shadow:inset 0 0 0 1px rgb(255 178 30/.45);background:rgb(25 29 42/.9)}
+.contacts small{display:block;font:500 11px "IBM Plex Mono";letter-spacing:.04em;color:rgb(255 255 255/.45);margin-bottom:6px;text-transform:uppercase}
+.contacts b{font-weight:600;color:#fff;word-break:break-word}
+@media (max-width:900px){.contacts{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.contacts{grid-template-columns:1fr}}
+
+footer{padding:56px 0 36px;border-top:1px solid var(--line);overflow:hidden}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:14.5px;color:rgb(255 255 255/.5)}
+.foot a{color:var(--accent);font-weight:600}
+.wordmark{font-family:Sora;font-weight:600;font-size:clamp(60px,17vw,270px);letter-spacing:-.07em;line-height:.85;text-align:center;margin-top:44px;background:linear-gradient(180deg,rgb(255 255 255/.12),rgb(255 255 255/0) 85%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none;white-space:nowrap}
+
+.fab{position:fixed;right:18px;bottom:18px;z-index:40;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(#22B86A,#159452);box-shadow:inset 0 1px 0 rgb(255 255 255/.3),0 14px 30px -8px rgb(29 170 97/.6);opacity:0;pointer-events:none;transition:opacity .3s,filter .16s}
+.fab.on{opacity:1;pointer-events:auto}.fab:hover{filter:brightness(1.1)}
+.fab svg{width:28px;height:28px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13.2 2 4.6 13.3c-.3.4 0 .9.5.9h5.4l-1.2 7.1c-.1.6.6.9 1 .4l8.6-11.3c.3-.4 0-.9-.5-.9H13l1.2-7.1c.1-.6-.6-.9-1-.4z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></g></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></g></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11a2 2 0 0 1 2 2v1l5-3v10l-5-3v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"/></g></symbol>
+  <symbol id="i-gate" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 21V5M21 21V5M3 8h18M3 18h18M7 8v10M11 8v10M15 8v10M19 8v10"/></g></symbol>
+  <symbol id="i-ant" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12v10M8 22h8M5 9a7 7 0 0 1 14 0M8.5 10a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="11" r="1"/></g></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></g></symbol>
+  <symbol id="i-build" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-5h6v5M9 11h.01M15 11h.01"/></g></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></g></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+</svg>
+
+<div class="demo-bar"><b>Demo di restyling</b> · proposta non ufficiale per Eletechno di Flavio Farioli, realizzata da <a href="https://carlhost.com">CarlHost</a>. Contenuti presi dal sito attuale.</div>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="#top"><span class="bolt"><svg><use href="#i-bolt"/></svg></span><span>Eletechno<small>IMPIANTI ELETTRICI</small></span></a>
+  <div class="nav-links"><a href="#servizi">Servizi</a><a href="#promo">Promozioni</a><a href="#metodo">Metodo</a><a href="#faq">FAQ</a><a href="#contatti">Contatti</a></div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a class="btn-ghost" href="tel:+393939491303"><svg><use href="#i-phone"/></svg>393 949 1303</a>
+    <a class="btn-rainbow wa-link" href="#"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-light" aria-hidden="true"><div class="a"></div><div class="b"></div><div class="c"></div><div class="grid"></div><div class="noise"></div></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow" data-fade><b>MILANO · PANTIGLIATE</b>Impianti elettrici, domotica e sicurezza</span>
+      <h1><span class="hl">L'impianto elettrico</span> <span class="hl">che ti fa</span> <span class="hl glow-word">sentire sicuro.</span></h1>
+      <p class="sub" data-fade>Progettiamo l'impianto adatto alle tue esigenze: risparmi sui consumi e vivi più tranquillo. Installazione, manutenzione e riparazioni per privati, aziende ed enti pubblici.</p>
+      <div class="cta" data-fade>
+        <a class="btn-rainbow wa-link" href="#"><svg><use href="#i-wa"/></svg>Chiedi una consulenza</a>
+        <a class="btn-pill" href="tel:+393939491303"><svg><use href="#i-phone"/></svg>393 949 1303<span class="side-glow"></span></a>
+      </div>
+      <div class="checks" data-fade>
+        <span><svg><use href="#i-check"/></svg>Dichiarazioni di conformità</span>
+        <span><svg><use href="#i-check"/></svg>Progetti firmati da ingegneri iscritti all'albo</span>
+        <span><svg><use href="#i-check"/></svg>Soluzioni su misura</span>
+      </div>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <svg class="circuit" viewBox="0 0 640 720" preserveAspectRatio="none">
+        <defs><linearGradient id="pulseGrad" x1="0" x2="1"><stop offset="0" stop-color="#FFB21E" stop-opacity="0"/><stop offset=".6" stop-color="#FFD36B"/><stop offset="1" stop-color="#fff"/></linearGradient></defs>
+        <path d="M0 140H150V260H250"/><path d="M640 120H520V230H420"/><path d="M0 560H120V470H250"/><path d="M640 600H540V500H420"/><path d="M320 0V90"/><path d="M320 720V630"/>
+        <path class="pulse" d="M0 140H150V260H250"/><path class="pulse d2" d="M640 600H540V500H420"/><path class="pulse d3" d="M640 120H520V230H420"/><path class="pulse d2" d="M0 560H120V470H250"/>
+        <circle cx="150" cy="140" r="4"/><circle cx="520" cy="230" r="4"/><circle cx="120" cy="470" r="4"/><circle cx="540" cy="600" r="4"/>
+      </svg>
+      <div class="phone">
+        <div class="screen">
+          <div class="island"></div>
+          <div class="app-top"><div><b>Casa</b><small>Tutto sotto controllo</small></div><span class="home"><svg><use href="#i-home"/></svg></span></div>
+          <div class="status-card"><span class="ic"><svg><use href="#i-shield"/></svg></span><div><b>Allarme inserito</b><small>4 contatti · sirena attiva</small></div><span class="live"></span></div>
+          <div class="cam">
+            <svg viewBox="0 0 270 120" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e293b"/><stop offset="1" stop-color="#0f172a"/></linearGradient></defs><rect width="270" height="120" fill="url(#sky)"/><path d="M0 92h270v28H0z" fill="#111827"/><path d="M40 92V48l40-26 40 26v44z" fill="#1f2937"/><rect x="70" y="62" width="20" height="30" fill="#0b1220"/><rect x="52" y="54" width="12" height="12" fill="#FFB21E" opacity=".75"/><rect x="96" y="54" width="12" height="12" fill="#FFB21E" opacity=".45"/><path d="M150 92V60h80v32" fill="#1f2937"/><g stroke="#374151" stroke-width="3"><path d="M150 70h80M160 60v32M175 60v32M190 60v32M205 60v32M220 60v32"/></g><circle cx="244" cy="22" r="10" fill="#fef3c7" opacity=".15"/><path d="M0 0l270 120" stroke="#fff" stroke-opacity=".02" stroke-width="40"/></svg>
+            <span class="rec"><i></i>LIVE</span><span class="lbl">Ingresso · cam 1</span>
+          </div>
+          <div class="tiles" id="tiles">
+            <div class="tile on"><div class="t-top"><svg><use href="#i-bulb"/></svg><span class="sw"></span></div><b>Luci LED</b><small>Soggiorno · 70%</small></div>
+            <div class="tile"><div class="t-top"><svg><use href="#i-gate"/></svg><span class="sw"></span></div><b>Cancello</b><small>Chiuso</small></div>
+            <div class="tile on"><div class="t-top"><svg><use href="#i-bolt"/></svg><span class="sw"></span></div><b>Restart auto</b><small>Corrente ok</small></div>
+            <div class="tile"><div class="t-top"><svg><use href="#i-ant"/></svg><span class="sw"></span></div><b>Antenna TV</b><small>Segnale ottimo</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="float f1"><span class="ic" style="background:rgb(59 227 138/.15);color:#3BE38A"><svg><use href="#i-bolt"/></svg></span><span>Corrente ripristinata<small>Restart automatico</small></span></div>
+      <div class="float f2"><span class="ic" style="background:rgb(255 178 30/.15);color:#FFB21E"><svg><use href="#i-doc"/></svg></span><span>Dichiarazione di conformità<small>firmata da ingegnere</small></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker"><div class="track" id="track">
+  <span>Impianti elettrici</span><span>Domotica</span><span>Illuminazione LED</span><span>Allarmi e videosorveglianza</span><span>Cancelli automatici</span><span>Antenna TV e satellitare</span><span>Quadri condominiali</span><span>Impianti audiovisivi</span><span>Edifici antichi</span><span>Adeguamenti di sicurezza</span>
+</div></div>
+
+<section class="pad">
+  <div class="wrap">
+    <p class="mono kick"><i></i>Perché un impianto progettato</p>
+    <p class="fill-text">Un impianto progettato bene non ti fa solo risparmiare. Soprattutto, ti fa sentire sicuro, a casa come in azienda.</p>
+  </div>
+</section>
+
+<section class="pad" id="servizi" style="padding-top:0">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="mono kick"><i></i>Servizi</p>
+      <h2 class="h2">Tutto l'impianto, <span class="dim">da un'unica squadra.</span></h2>
+      <p class="sub">Installazione, configurazione, manutenzione e riparazione. Ti ascoltiamo, progettiamo e restiamo al tuo fianco.</p>
+    </div>
+    <div class="bento" data-reveal>
+      <article class="card c8"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-bolt"/></svg></span>
+        <h3>Impianti elettrici e ristrutturazioni</h3>
+        <p>Nuovi impianti e rifacimenti per case, uffici, industrie ed enti pubblici. Adeguamenti alla legge sulla sicurezza e quadri generali per i servizi comuni dei condomini.</p>
+        <div class="mini panel" id="panel">
+          <div class="brk on"><i></i><span>LUCI</span></div><div class="brk on"><i></i><span>PRESE</span></div><div class="brk on"><i></i><span>CUCINA</span></div><div class="brk on"><i></i><span>CLIMA</span></div><div class="brk"><i></i><span>GARAGE</span></div><div class="brk on"><i></i><span>ALLARME</span></div>
+          <div class="panel-foot"><span>QUADRO GENERALE</span><b>● IMPIANTO A NORMA</b></div>
+        </div>
+      </article>
+      <article class="card c4"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-doc"/></svg></span>
+        <h3>Progetti e conformità</h3>
+        <p>Progetti e dichiarazioni di conformità redatti da ingegneri iscritti all'albo.</p>
+        <div class="mini doc"><div class="h">Dichiarazione di conformità<span>OK</span></div><div class="l"></div><div class="l"></div><div class="l s"></div><div class="sig"><span>Ing. iscritto all'albo</span><svg viewBox="0 0 80 26"><path d="M2 20c8-14 12-16 14-8s4 10 10-2 8-8 10 0 6 6 12-4 10-6 14 4 8 4 16-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div></div>
+      </article>
+      <article class="card c5"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-home"/></svg></span>
+        <h3>Domotica e automazioni</h3>
+        <p>Impianti domotici e automazioni domestiche, con consulenza su progettazione e utilizzo.</p>
+        <div class="mini tiles">
+          <div class="tile on"><div class="t-top"><svg><use href="#i-bulb"/></svg><span class="sw"></span></div><b>Scenari luci</b><small>Sera</small></div>
+          <div class="tile"><div class="t-top"><svg><use href="#i-home"/></svg><span class="sw"></span></div><b>Tapparelle</b><small>Programmate</small></div>
+        </div>
+      </article>
+      <article class="card c7"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-bulb"/></svg></span>
+        <h3>Illuminazione a LED</h3>
+        <p>Impianti di illuminazione LED: più luce, meno consumi, l'atmosfera giusta in ogni stanza.</p>
+        <div class="mini dimmer">
+          <div class="row"><span>Intensità</span><b>70%</b></div><div class="bar"><i></i></div>
+          <div class="row"><span>Temperatura</span><b>3000 K</b></div><div class="bar k"><i></i></div>
+          <div class="bulbs"><i></i><i></i><i></i><i></i></div>
+        </div>
+      </article>
+      <article class="card c4"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-shield"/></svg></span>
+        <h3>Allarmi e videosorveglianza</h3>
+        <p>Impianti antintrusione e telecamere visibili anche da remoto, dallo smartphone.</p>
+        <div class="mini status-card" style="margin:0"><span class="ic"><svg><use href="#i-cam"/></svg></span><div><b>Telecamere online</b><small>Visibili da remoto</small></div><span class="live"></span></div>
+      </article>
+      <article class="card c4"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-gate"/></svg></span>
+        <h3>Cancelli automatici</h3>
+        <p>Automazione di cancelli e accessi, installazione e manutenzione.</p>
+        <div class="mini gate"><span class="bars"></span><span class="post"></span><span class="led"></span><span class="st">CANCELLO · AUTOMATICO</span></div>
+      </article>
+      <article class="card c4"><span class="spot"></span>
+        <span class="c-ic"><svg><use href="#i-ant"/></svg></span>
+        <h3>Antenna TV e audiovisivi</h3>
+        <p>Impianti antenna TV centralizzata e satellitare, impianti audio e video.</p>
+        <div class="mini signal"><i></i><i></i><i></i><i></i><i></i><i></i><b>SEGNALE</b></div>
+      </article>
+      <article class="card c6" style="grid-column:span 12"><span class="spot"></span>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center">
+          <span class="c-ic" style="width:56px;height:56px"><svg><use href="#i-build"/></svg></span>
+          <div><h3>Edifici antichi e di pregio</h3><p style="margin-top:6px">Ristrutturazione e installazione di impianti in edifici antichi, con il rispetto che meritano.</p></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="light pad" id="promo">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="mono kick"><i></i>In promozione</p>
+      <h2 class="h2">Sicurezza <span class="dim">a un prezzo accessibile a tutti.</span></h2>
+    </div>
+    <div class="promo" data-reveal>
+      <div class="p-main">
+        <div>
+          <span class="badge">IMPIANTO ANTINTRUSIONE COMELIT</span>
+          <h3>Allarme e videosorveglianza, tutto senza fili.</h3>
+          <p>Wi-Fi e batterie a lunga durata. Si gestisce tutto dall'app.</p>
+          <ul class="specs">
+            <li><svg><use href="#i-check"/></svg>Centrale gestibile da app, con combinatore telefonico GSM</li>
+            <li><svg><use href="#i-check"/></svg>Sirena da esterno con toni, flash e volumi regolabili da app</li>
+            <li><svg><use href="#i-check"/></svg>4 contatti per porte e finestre</li>
+            <li><svg><use href="#i-check"/></svg>1 telecomando per inserire l'impianto</li>
+          </ul>
+          <div class="gift"><svg><use href="#i-gift"/></svg>In regalo: 1 telecamera collegata all'impianto, visibile anche da remoto</div>
+        </div>
+        <div class="kit" aria-hidden="true">
+          <svg viewBox="0 0 300 300">
+            <defs><linearGradient id="wh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E4EAEE"/></linearGradient><filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0D1017" flood-opacity=".18"/></filter></defs>
+            <g filter="url(#sh)"><rect x="60" y="40" width="120" height="150" rx="18" fill="url(#wh)" stroke="#D5DCE3"/><rect x="76" y="58" width="88" height="54" rx="8" fill="#0D1017"/><text x="120" y="83" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#3BE38A">INSERITO</text><text x="120" y="99" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#94a3b8">GSM · WI-FI</text><g fill="#E4EAEE" stroke="#CBD5E1"><circle cx="92" cy="134" r="9"/><circle cx="120" cy="134" r="9"/><circle cx="148" cy="134" r="9"/><circle cx="92" cy="162" r="9"/><circle cx="120" cy="162" r="9"/><circle cx="148" cy="162" r="9"/></g></g>
+            <g filter="url(#sh)"><path d="M200 70h50a10 10 0 0 1 10 10v28l-35 18-35-18V80a10 10 0 0 1 10-10z" fill="url(#wh)" stroke="#D5DCE3"/><circle cx="225" cy="94" r="9" fill="#EA580C"/><circle cx="225" cy="94" r="16" fill="none" stroke="#EA580C" stroke-opacity=".3" stroke-width="3"/></g>
+            <g filter="url(#sh)"><rect x="196" y="160" width="62" height="38" rx="19" fill="url(#wh)" stroke="#D5DCE3"/><circle cx="214" cy="179" r="11" fill="#0D1017"/><circle cx="214" cy="179" r="5" fill="#1e3a8a"/><circle cx="212" cy="177" r="1.8" fill="#fff"/><rect x="222" y="198" width="10" height="26" fill="#CBD5E1"/></g>
+            <g filter="url(#sh)"><rect x="40" y="220" width="54" height="22" rx="5" fill="url(#wh)" stroke="#D5DCE3"/><rect x="100" y="224" width="22" height="14" rx="4" fill="url(#wh)" stroke="#D5DCE3"/></g>
+            <g filter="url(#sh)"><rect x="140" y="214" width="34" height="54" rx="12" fill="#0D1017"/><circle cx="157" cy="232" r="5" fill="#FFB21E"/><rect x="150" y="246" width="14" height="4" rx="2" fill="#475569"/></g>
+          </svg>
+        </div>
+      </div>
+      <div class="p-side">
+        <span class="badge" style="align-self:flex-start;background:rgb(255 178 30/.15);color:#FFB21E;margin:0;position:relative">GEWISS RESTART AUTOMATICO</span>
+        <h3>Salta la corrente mentre sei via?</h3>
+        <p>Nessun problema: verifica l'impianto, esclude che ci siano guasti e riattiva la corrente da solo. Il frigo resta acceso e tu vivi più sereno.</p>
+        <div class="restart">
+          <span class="ring"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" fill="none" stroke="rgb(255 255 255/.08)" stroke-width="4"/><circle cx="26" cy="26" r="22" fill="none" stroke="#3BE38A" stroke-width="4" stroke-dasharray="40 140" stroke-linecap="round"/></svg><b><svg><use href="#i-bolt"/></svg></b></span>
+          <div><small>Controllo impianto</small><strong>Nessun guasto · corrente riattivata</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="mono kick"><i></i>Per chi lavoriamo</p>
+      <h2 class="h2">Dal tuo appartamento <span class="dim">al capannone.</span></h2>
+    </div>
+    <div class="who" data-reveal>
+      <article class="card"><span class="spot"></span><span class="num">01</span><h3>Privati</h3><ul><li>Impianti nuovi e ristrutturazioni</li><li>Domotica e luci LED</li><li>Allarmi e telecamere</li></ul></article>
+      <article class="card"><span class="spot"></span><span class="num">02</span><h3>Aziende e industrie</h3><ul><li>Impianti industriali</li><li>Manutenzione programmata</li><li>Adeguamenti di sicurezza</li></ul></article>
+      <article class="card"><span class="spot"></span><span class="num">03</span><h3>Condomini ed enti pubblici</h3><ul><li>Quadri servizi comuni</li><li>Antenna TV centralizzata</li><li>Edifici antichi e di pregio</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="metodo" style="padding-top:0">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="mono kick"><i></i>Come lavoriamo</p>
+      <h2 class="h2">Prima ascoltiamo, <span class="dim">poi accendiamo.</span></h2>
+    </div>
+    <div class="steps" data-reveal>
+      <div class="step"><span class="dot">01</span><h3>Consulenza</h3><p>I nostri tecnici ascoltano le tue richieste e ti consigliano la soluzione giusta.</p></div>
+      <div class="step"><span class="dot">02</span><h3>Progetto</h3><p>Un impianto su misura, pensato per massime prestazioni e bassi consumi.</p></div>
+      <div class="step"><span class="dot">03</span><h3>Installazione</h3><p>Personale qualificato e tecnologie all'avanguardia, con un servizio veloce.</p></div>
+      <div class="step"><span class="dot">04</span><h3>Conformità</h3><p>Dichiarazione di conformità e assistenza nel tempo, per manutenzione e riparazioni.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="faq" style="padding-top:0">
+  <div class="wrap faq-grid">
+    <div class="head" data-reveal style="margin:0">
+      <p class="mono kick"><i></i>Domande frequenti</p>
+      <h2 class="h2">Hai un dubbio? <span class="dim">Chiedi pure.</span></h2>
+      <p class="sub">Per tutto il resto scrivi a Flavio su WhatsApp o chiama il 393 949 1303.</p>
+    </div>
+    <div class="faq" data-reveal>
+      <details open><summary>Dove operate?<i><svg><use href="#i-plus"/></svg></i></summary><p>A Milano e Pantigliate. La sede è in via Rimembranze 5, 20090 Pantigliate.</p></details>
+      <details><summary>Rilasciate la dichiarazione di conformità?<i><svg><use href="#i-plus"/></svg></i></summary><p>Sì. Progetti e dichiarazioni di conformità sono redatti da ingegneri iscritti all'albo dei professionisti del settore.</p></details>
+      <details><summary>Lavorate anche per aziende ed enti pubblici?<i><svg><use href="#i-plus"/></svg></i></summary><p>Sì, realizziamo impianti elettrici per privati, industrie ed enti pubblici, oltre ai quadri generali dei servizi comuni nei condomini.</p></details>
+      <details><summary>Posso vedere le telecamere dal telefono?<i><svg><use href="#i-plus"/></svg></i></summary><p>Sì. L'impianto antintrusione in promozione si gestisce da app e la telecamera è visibile anche da remoto.</p></details>
+      <details><summary>Fate anche solo manutenzione o riparazioni?<i><svg><use href="#i-plus"/></svg></i></summary><p>Certo: manutenzione e riparazione di impianti elettrici esistenti, oltre a nuove installazioni.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contatti">
+  <p class="mono kick" style="justify-content:center"><i></i>Contatti</p>
+  <h2 data-reveal><span>Parliamo del tuo impianto.</span></h2>
+  <p class="sub">Raccontaci cosa ti serve: ti rispondiamo con una consulenza su misura.</p>
+  <div class="cta">
+    <a class="btn-rainbow wa-link" href="#"><svg><use href="#i-wa"/></svg>Scrivi su WhatsApp</a>
+    <a class="btn-pill" href="tel:+393939491303"><svg><use href="#i-phone"/></svg>Chiama ora<span class="side-glow"></span></a>
+  </div>
+  <div class="contacts" data-reveal>
+    <a href="https://maps.google.com/?q=Via+Rimembranze+5+20090+Pantigliate" target="_blank" rel="noopener"><small>Sede</small><b>Via Rimembranze 5, 20090 Pantigliate</b></a>
+    <a href="tel:+393939491303"><small>Telefono</small><b>393 949 1303</b></a>
+    <a class="wa-link" href="#"><small>WhatsApp</small><b>Scrivi a Flavio</b></a>
+    <a href="mailto:info@flaviofarioli.it"><small>Email</small><b>info@flaviofarioli.it</b></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot"><span>© Eletechno di Farioli Flavio · Via Rimembranze 5, 20090 Pantigliate</span><span>Demo di restyling non ufficiale, realizzata da <a href="https://carlhost.com">CarlHost</a></span></div>
+  <div class="wordmark" aria-hidden="true">Eletechno</div>
+</footer>
+
+<a class="fab wa-link" id="fab" href="#" aria-label="Scrivi su WhatsApp"><svg><use href="#i-wa"/></svg></a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script>
+const wa = "https://wa.me/393939491303?text=" + encodeURIComponent("Buongiorno Flavio, vorrei una consulenza per il mio impianto.");
+document.querySelectorAll(".wa-link").forEach(a => { a.href = wa; a.target = "_blank"; a.rel = "noopener"; });
+const track = document.getElementById("track"); track.innerHTML += track.innerHTML.replace(/<span/g, '<span aria-hidden="true"');
+const nav = document.getElementById("nav"), fab = document.getElementById("fab");
+const onScroll = () => { nav.classList.toggle("stuck", scrollY > 30); fab.classList.toggle("on", scrollY > innerHeight * .8); };
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// live demo: tiles and breakers toggle by themselves
+if (!reduce) {
+  const tiles = [...document.querySelectorAll("#tiles .tile")];
+  const states = [["Cancello", "Aperto", "Chiuso", 1]];
+  let k = 0;
+  setInterval(() => { const t = tiles[[1, 0, 3][k++ % 3]]; t.classList.toggle("on"); const s = t.querySelector("small");
+    if (t.querySelector("b").textContent === "Cancello") s.textContent = t.classList.contains("on") ? "Aperto" : "Chiuso"; }, 2200);
+  const brk = document.querySelector("#panel .brk:nth-child(5)");
+  setInterval(() => brk.classList.toggle("on"), 2600);
+}
+// cursor spotlight on cards (desktop only)
+if (matchMedia("(hover:hover)").matches) document.querySelectorAll(".card").forEach(c => c.addEventListener("pointermove", e => {
+  const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px"); }));
+
+if (window.gsap) {
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+  document.fonts.ready.then(() => {
+    gsap.matchMedia().add({ motion: "(prefers-reduced-motion: no-preference)", desktop: "(min-width:769px)" }, ctx => {
+      const { motion, desktop } = ctx.conditions;
+      if (!motion) { document.documentElement.classList.add("reduce"); return; }
+      if (desktop && window.Lenis) {
+        const lenis = new Lenis({ lerp: .1, smoothWheel: true });
+        lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const t = document.querySelector(a.getAttribute("href")); if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -90 }); } }));
+      }
+      gsap.from(".hero h1 .hl", { y: 36, opacity: 0, filter: "blur(8px)", duration: 1.1, ease: "expo.out", stagger: .1, delay: .1 });
+      gsap.from(".hero [data-fade]", { y: 24, opacity: 0, duration: .9, ease: "power3.out", stagger: .08, delay: .35 });
+      gsap.from(".phone", { y: 90, rotateX: 16, opacity: 0, transformPerspective: 1200, duration: 1.4, ease: "power3.out", delay: .45 });
+      gsap.from(".float", { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: .15, delay: 1.1 });
+      gsap.from(".circuit", { opacity: 0, duration: 2, delay: .6 });
+      gsap.utils.toArray("[data-reveal]").forEach(g => gsap.from(g.children, { y: 40, opacity: 0, duration: .9, ease: "power3.out", stagger: .08, scrollTrigger: { trigger: g, start: "top 84%" } }));
+      gsap.utils.toArray(".fill-text").forEach(el => SplitText.create(el, { type: "lines", linesClass: "line", autoSplit: true, onSplit: self => {
+        const tl = gsap.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 40%", scrub: .5 } });
+        self.lines.forEach(l => tl.to(l, { backgroundPosition: "0% 0", duration: 1 })); return tl; } }));
+      gsap.to(".hero-light .a", { yPercent: 25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    });
+  });
+} else document.documentElement.classList.add("no-js");
+</script>
+</body>
+</html>
